@@ -1,0 +1,91 @@
+---
+whiskers:
+  version: "^2.0"
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nebelung — {{ flavor.name }} preview</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 40px;
+    background: #{{ crust.hex }};
+    color: #{{ text.hex }};
+    font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: #{{ subtext0.hex }}; margin-bottom: 28px; }
+  .grid { display: grid; gap: 8px; }
+  .accents { grid-template-columns: repeat(7, 1fr); margin-bottom: 28px; }
+  .ramp { grid-template-columns: repeat(12, 1fr); margin-bottom: 28px; }
+  .sw { border-radius: 8px; padding: 10px; height: 64px; display: flex;
+        flex-direction: column; justify-content: flex-end; font-size: 11px; }
+  .sw small { opacity: .85; }
+  .panel { background: #{{ base.hex }}; border: 1px solid #{{ surface0.hex }};
+           border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+  .titlebar { background: #{{ mantle.hex }}; padding: 10px 14px;
+              border-bottom: 1px solid #{{ surface0.hex }};
+              color: #{{ subtext1.hex }}; display: flex; gap: 8px; align-items: center; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .code { padding: 16px 18px; white-space: pre; }
+  .ln { color: #{{ overlay0.hex }}; user-select: none; margin-right: 16px; }
+  .kw { color: #{{ mauve.hex }}; }
+  .fn { color: #{{ blue.hex }}; }
+  .str { color: #{{ green.hex }}; }
+  .num { color: #{{ peach.hex }}; }
+  .cmt { color: #{{ overlay1.hex }}; font-style: italic; }
+  .ty { color: #{{ yellow.hex }}; }
+  .op { color: #{{ sky.hex }}; }
+  .sel { background: #{{ surface1.hex }}; }
+  .term { background: #{{ base.hex }}; }
+  .prompt .a { color: #{{ green.hex }}; } .prompt .b { color: #{{ blue.hex }}; }
+  .prompt .c { color: #{{ teal.hex }}; }
+</style>
+</head>
+<body>
+  <h1>Nebelung</h1>
+  <div class="sub">{{ flavor.name }} base, blue stripped → warm graphite · accents calmed</div>
+
+  <div class="grid accents">
+    {% for name in ["rosewater","flamingo","pink","mauve","red","maroon","peach","yellow","green","teal","sky","sapphire","blue","lavender"] -%}
+    {% set c = flavor.colors[name] -%}
+    <div class="sw" style="background:#{{ c.hex }}; color:#{{ crust.hex }}">{{ name }}<small>#{{ c.hex }}</small></div>
+    {% endfor -%}
+  </div>
+
+  <div class="grid ramp">
+    {% for name in ["crust","mantle","base","surface0","surface1","surface2","overlay0","overlay1","overlay2","subtext0","subtext1","text"] -%}
+    {% set c = flavor.colors[name] -%}
+    <div class="sw" style="background:#{{ c.hex }}; color:#{{ text.hex }}; border:1px solid #{{ surface0.hex }}"><small>{{ name }}</small></div>
+    {% endfor -%}
+  </div>
+
+  <div class="panel">
+    <div class="titlebar">
+      <span class="dot" style="background:#{{ red.hex }}"></span>
+      <span class="dot" style="background:#{{ yellow.hex }}"></span>
+      <span class="dot" style="background:#{{ green.hex }}"></span>
+      <span style="margin-left:6px">nebelung.rs</span>
+    </div>
+    <div class="code"><span class="ln">1</span><span class="cmt">// strip the blue, keep the cat</span>
+<span class="ln">2</span><span class="kw">use</span> catppuccin<span class="op">::</span><span class="ty">Flavor</span>;
+<span class="ln">3</span>
+<span class="ln">4</span><span class="kw">pub fn</span> <span class="fn">neutralize</span>(c<span class="op">:</span> <span class="ty">Color</span>) <span class="op">-></span> <span class="ty">Color</span> {
+<span class="ln">5</span>    <span class="kw">let</span> warm <span class="op">=</span> <span class="num">70.0</span>; <span class="cmt">// hue°</span>
+<span class="ln">6</span><span class="sel">    c.with_hue(warm).with_chroma(<span class="num">0.008</span>)</span>
+<span class="ln">7</span>}
+<span class="ln">8</span>
+<span class="ln">9</span><span class="kw">let</span> name <span class="op">=</span> <span class="str">"nebelung"</span>;</div>
+  </div>
+
+  <div class="panel term">
+    <div class="code"><span class="prompt"><span class="a">~/code/nebelung</span> <span class="b">git:(</span><span class="c">main</span><span class="b">)</span></span> just build
+<span style="color:#{{ green.hex }}">✓</span> rendered <span style="color:#{{ yellow.hex }}">7</span> ports against the nebelung palette
+<span style="color:#{{ overlay1.hex }}">→</span> dist/ updated</div>
+  </div>
+</body>
+</html>
