@@ -45,6 +45,7 @@ build.sh              # render every port into dist/
 | tmux | `tmux/themes/catppuccin_mocha_tmux.conf` | `source` it from `.tmux.conf` |
 | Slack | `slack/README.md` | copy the comma-separated hex string → Slack ▸ Preferences ▸ Themes ▸ paste |
 | Zen | `zen/themes/Mocha/<Accent>/userChrome.css` (+ `userContent.css`) | pick an accent folder, copy into your Zen `chrome/` dir |
+| Obsidian | `obsidian/nebelung.css` | copy into a vault's `.obsidian/snippets/`, then enable under Settings ▸ Appearance ▸ CSS snippets (use the Default theme) |
 | VS Code / Cursor | `vscode/settings.json` | merge into your user `settings.json` (needs the Catppuccin extension) |
 
 VS Code uses the extension's native `catppuccin.colorOverrides` setting — no
