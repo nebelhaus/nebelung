@@ -1,0 +1,135 @@
+---
+whiskers:
+  version: "2.0.0"
+  matrix:
+    - flavor
+  filename: "themes/nebelung.kdl"
+---
+{#-
+  Nebelung port of zellij's built-in catppuccin-mocha theme (component/UI
+  spec, zellij >= 0.40). Structure is copied 1:1 from
+  zellij-utils/assets/themes/catppuccin-mocha.kdl; every catppuccin slot is
+  swapped for its Nebelung equivalent. A literal `0` means "unset" and is kept
+  verbatim. Colors are emitted as hex strings, which zellij accepts anywhere a
+  component color is expected.
+-#}
+themes {
+    nebelung {
+        text_unselected {
+            base "#{{ text.hex }}"
+            background "#{{ mantle.hex }}"
+            emphasis_0 "#{{ peach.hex }}"
+            emphasis_1 "#{{ sky.hex }}"
+            emphasis_2 "#{{ green.hex }}"
+            emphasis_3 "#{{ pink.hex }}"
+        }
+        text_selected {
+            base "#{{ text.hex }}"
+            background "#{{ surface2.hex }}"
+            emphasis_0 "#{{ peach.hex }}"
+            emphasis_1 "#{{ sky.hex }}"
+            emphasis_2 "#{{ green.hex }}"
+            emphasis_3 "#{{ pink.hex }}"
+        }
+        ribbon_selected {
+            base "#{{ mantle.hex }}"
+            background "#{{ green.hex }}"
+            emphasis_0 "#{{ red.hex }}"
+            emphasis_1 "#{{ peach.hex }}"
+            emphasis_2 "#{{ pink.hex }}"
+            emphasis_3 "#{{ blue.hex }}"
+        }
+        ribbon_unselected {
+            base "#{{ mantle.hex }}"
+            background "#{{ text.hex }}"
+            emphasis_0 "#{{ red.hex }}"
+            emphasis_1 "#{{ text.hex }}"
+            emphasis_2 "#{{ blue.hex }}"
+            emphasis_3 "#{{ pink.hex }}"
+        }
+        table_title {
+            base "#{{ green.hex }}"
+            background 0
+            emphasis_0 "#{{ peach.hex }}"
+            emphasis_1 "#{{ sky.hex }}"
+            emphasis_2 "#{{ green.hex }}"
+            emphasis_3 "#{{ pink.hex }}"
+        }
+        table_cell_selected {
+            base "#{{ text.hex }}"
+            background "#{{ surface2.hex }}"
+            emphasis_0 "#{{ peach.hex }}"
+            emphasis_1 "#{{ sky.hex }}"
+            emphasis_2 "#{{ green.hex }}"
+            emphasis_3 "#{{ pink.hex }}"
+        }
+        table_cell_unselected {
+            base "#{{ text.hex }}"
+            background "#{{ mantle.hex }}"
+            emphasis_0 "#{{ peach.hex }}"
+            emphasis_1 "#{{ sky.hex }}"
+            emphasis_2 "#{{ green.hex }}"
+            emphasis_3 "#{{ pink.hex }}"
+        }
+        list_selected {
+            base "#{{ text.hex }}"
+            background "#{{ surface2.hex }}"
+            emphasis_0 "#{{ peach.hex }}"
+            emphasis_1 "#{{ sky.hex }}"
+            emphasis_2 "#{{ green.hex }}"
+            emphasis_3 "#{{ pink.hex }}"
+        }
+        list_unselected {
+            base "#{{ text.hex }}"
+            background "#{{ mantle.hex }}"
+            emphasis_0 "#{{ peach.hex }}"
+            emphasis_1 "#{{ sky.hex }}"
+            emphasis_2 "#{{ green.hex }}"
+            emphasis_3 "#{{ pink.hex }}"
+        }
+        frame_selected {
+            base "#{{ green.hex }}"
+            background 0
+            emphasis_0 "#{{ peach.hex }}"
+            emphasis_1 "#{{ sky.hex }}"
+            emphasis_2 "#{{ pink.hex }}"
+            emphasis_3 0
+        }
+        frame_highlight {
+            base "#{{ peach.hex }}"
+            background 0
+            emphasis_0 "#{{ pink.hex }}"
+            emphasis_1 "#{{ peach.hex }}"
+            emphasis_2 "#{{ peach.hex }}"
+            emphasis_3 "#{{ peach.hex }}"
+        }
+        exit_code_success {
+            base "#{{ green.hex }}"
+            background 0
+            emphasis_0 "#{{ sky.hex }}"
+            emphasis_1 "#{{ mantle.hex }}"
+            emphasis_2 "#{{ pink.hex }}"
+            emphasis_3 "#{{ blue.hex }}"
+        }
+        exit_code_error {
+            base "#{{ red.hex }}"
+            background 0
+            emphasis_0 "#{{ yellow.hex }}"
+            emphasis_1 0
+            emphasis_2 0
+            emphasis_3 0
+        }
+        multiplayer_user_colors {
+            player_1 "#{{ pink.hex }}"
+            player_2 "#{{ blue.hex }}"
+            player_3 0
+            player_4 "#{{ yellow.hex }}"
+            player_5 "#{{ sky.hex }}"
+            player_6 0
+            player_7 "#{{ red.hex }}"
+            player_8 0
+            player_9 0
+            player_10 0
+        }
+    }
+}
