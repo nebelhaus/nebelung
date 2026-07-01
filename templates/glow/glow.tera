@@ -1,0 +1,76 @@
+---
+whiskers:
+  version: ^2.5.1
+  matrix:
+    - flavor
+  filename: "catppuccin-{{ flavor.identifier }}.json"
+---
+{
+  "document":    { "block_prefix": "\n", "block_suffix": "\n", "color": "#{{ text.hex }}", "margin": 2 },
+  "block_quote": { "color": "#{{ subtext0.hex }}", "italic": true, "indent": 1, "indent_token": "│ " },
+  "paragraph":   {},
+  "list":        { "level_indent": 2 },
+  "heading":     { "block_suffix": "\n", "color": "#{{ text.hex }}", "bold": true },
+  "h1": { "prefix": " ", "suffix": " ", "color": "#{{ base.hex }}", "background_color": "#{{ mauve.hex }}", "bold": true },
+  "h2": { "prefix": "## ",     "color": "#{{ mauve.hex }}",    "bold": true },
+  "h3": { "prefix": "### ",    "color": "#{{ lavender.hex }}", "bold": true },
+  "h4": { "prefix": "#### ",   "color": "#{{ blue.hex }}",     "bold": true },
+  "h5": { "prefix": "##### ",  "color": "#{{ sapphire.hex }}", "bold": true },
+  "h6": { "prefix": "###### ", "color": "#{{ subtext0.hex }}", "bold": true },
+  "text": {},
+  "strikethrough": { "crossed_out": true },
+  "emph":   { "color": "#{{ flamingo.hex }}", "italic": true },
+  "strong": { "bold": true },
+  "hr": { "color": "#{{ overlay0.hex }}", "format": "\n────────\n" },
+  "item":        { "block_prefix": "• " },
+  "enumeration": { "block_prefix": ". " },
+  "task": { "ticked": "[✓] ", "unticked": "[ ] " },
+  "link":       { "color": "#{{ blue.hex }}",     "underline": true },
+  "link_text":  { "color": "#{{ lavender.hex }}", "bold": true },
+  "image":      { "color": "#{{ blue.hex }}",     "underline": true },
+  "image_text": { "color": "#{{ overlay1.hex }}", "format": "Image: {% raw %}{{.text}}{% endraw %} →" },
+  "code": { "prefix": " ", "suffix": " ", "color": "#{{ peach.hex }}", "background_color": "#{{ surface0.hex }}" },
+  "code_block": {
+    "color": "#{{ subtext0.hex }}",
+    "margin": 2,
+    "chroma": {
+      "text":            { "color": "#{{ text.hex }}" },
+      "error":           { "color": "#{{ text.hex }}", "background_color": "#{{ red.hex }}" },
+      "comment":         { "color": "#{{ overlay0.hex }}", "italic": true },
+      "comment_preproc": { "color": "#{{ blue.hex }}" },
+      "keyword":           { "color": "#{{ mauve.hex }}" },
+      "keyword_reserved":  { "color": "#{{ mauve.hex }}" },
+      "keyword_namespace": { "color": "#{{ yellow.hex }}" },
+      "keyword_type":      { "color": "#{{ yellow.hex }}" },
+      "operator":    { "color": "#{{ sky.hex }}" },
+      "punctuation": { "color": "#{{ overlay2.hex }}" },
+      "name":           { "color": "#{{ text.hex }}" },
+      "name_builtin":   { "color": "#{{ peach.hex }}" },
+      "name_tag":       { "color": "#{{ mauve.hex }}" },
+      "name_attribute": { "color": "#{{ yellow.hex }}" },
+      "name_class":     { "color": "#{{ yellow.hex }}", "bold": true },
+      "name_constant":  { "color": "#{{ peach.hex }}" },
+      "name_decorator": { "color": "#{{ pink.hex }}" },
+      "name_exception": { "color": "#{{ red.hex }}" },
+      "name_function":  { "color": "#{{ blue.hex }}" },
+      "name_other":     { "color": "#{{ text.hex }}" },
+      "literal":               { "color": "#{{ peach.hex }}" },
+      "literal_number":        { "color": "#{{ peach.hex }}" },
+      "literal_date":          { "color": "#{{ peach.hex }}" },
+      "literal_string":        { "color": "#{{ green.hex }}" },
+      "literal_string_escape": { "color": "#{{ pink.hex }}" },
+      "generic_deleted":    { "color": "#{{ red.hex }}" },
+      "generic_emph":       { "italic": true },
+      "generic_inserted":   { "color": "#{{ green.hex }}" },
+      "generic_strong":     { "bold": true },
+      "generic_subheading": { "color": "#{{ sky.hex }}" },
+      "background":         { "background_color": "#{{ mantle.hex }}" }
+    }
+  },
+  "table": { "center_separator": "┼", "column_separator": "│", "row_separator": "─" },
+  "definition_list": {},
+  "definition_term": { "bold": true },
+  "definition_description": { "block_prefix": "\n🠶 " },
+  "html_block": {},
+  "html_span": {}
+}
