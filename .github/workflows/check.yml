@@ -1,0 +1,29 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    name: build + dist drift check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - run: nix build --print-build-logs
+      # dist/ is committed for non-nix users; it must always equal what the
+      # flake builds from palette + templates. Compare both directions:
+      # every committed file matches, and nothing rendered is missing.
+      - name: dist/ matches the built output
+        run: |
+          fail=0
+          while IFS= read -r f; do
+            cmp -s "dist/$f" "result/$f" || { echo "::error::dist/$f differs from the built output"; fail=1; }
+          done < <(cd dist && find . -type f)
+          while IFS= read -r f; do
+            [ -f "dist/$f" ] || { echo "::error::dist/$f is missing (rendered but not committed)"; fail=1; }
+          done < <(cd result && find . -type f -not -path './preview/*' -not -name 'nebelung.json' -not -name 'nebelung.hex.json')
+          [ "$fail" = 0 ] && echo "dist/ is in sync"
+          exit "$fail"

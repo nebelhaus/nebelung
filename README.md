@@ -41,8 +41,17 @@ build.sh              # render every port into dist/
 | Kitty | `kitty/themes/mocha.conf` | copy into `~/.config/kitty/`, then `include mocha.conf` |
 | Alacritty | `alacritty/catppuccin-mocha.toml` | import under `[general] import` in `alacritty.toml` |
 | Starship | `starship/themes/mocha.toml` | merge into `~/.config/starship.toml` (or `palette = "mocha"`) |
+| Zellij | `zellij/themes/nebelung.kdl` | copy into `~/.config/zellij/themes/`, set `theme "nebelung"` |
 | btop | `btop/themes/catppuccin_mocha.theme` | copy into `~/.config/btop/themes/`, set `color_theme` |
 | tmux | `tmux/themes/catppuccin_mocha_tmux.conf` | `source` it from `.tmux.conf` |
+| bat | `bat/themes/Catppuccin Mocha.tmTheme` | copy into `$(bat --config-dir)/themes/`, `bat cache --build`, set `--theme` |
+| delta | `delta/catppuccin.gitconfig` | `include` it from `~/.gitconfig`, set `features = catppuccin-mocha` |
+| fzf | `fzf/themes/catppuccin-fzf-mocha.sh` (+ fish/nu/ps1/rc) | source it from your shell rc |
+| lsd | `lsd/themes/catppuccin-mocha/colors.yaml` | copy as `~/.config/lsd/colors.yaml`, set `color.theme: custom` |
+| yazi | `yazi/themes/mocha/catppuccin-mocha-<accent>.toml` | copy the accent you want as the flavor in `theme.toml` |
+| lazygit | `lazygit/themes/mocha/<accent>.yml` | point `lg` config at it, or merge the `themes-mergable` variant |
+| glow | `glow/catppuccin-mocha.json` | a glamour style — pass with `glow -s <path>` |
+| zsh-syntax-highlighting | `zsh-syntax-highlighting/themes/…mocha….zsh` | source it before `zsh-syntax-highlighting.zsh` |
 | Slack | `slack/README.md` | copy the comma-separated hex string → Slack ▸ Preferences ▸ Themes ▸ paste |
 | Zen | `zen/themes/Mocha/<Accent>/userChrome.css` (+ `userContent.css`) | pick an accent folder, copy into your Zen `chrome/` dir |
 | Obsidian | `obsidian/nebelung.css` | copy into a vault's `.obsidian/snippets/`, then enable under Settings ▸ Appearance ▸ CSS snippets (use the Default theme) |
@@ -52,12 +61,28 @@ VS Code uses the extension's native `catppuccin.colorOverrides` setting — no
 build, the palette is just injected via settings. Set `catppuccin.accentColor`
 yourself if you want a non-default accent.
 
-### Not yet wired
+## Nix
 
-- **bat** — has no whiskers template upstream; it's a Deno/TypeScript build off
-  `@catppuccin/palette`. Producing a Nebelung `.tmTheme` means cloning
-  `catppuccin/bat`, patching the palette input, and running its build. Left as a
-  TODO — ask and I'll add it.
+You don't need to install any of the above by hand if you consume this repo as
+a flake — that's how the [nebelhaus](https://github.com/nebelhaus/nebelhaus)
+rice themes everything:
+
+```nix
+inputs.nebelung.url = "github:nebelhaus/nebelung";
+```
+
+Two outputs:
+
+- `packages.<system>.default` — the whole `dist/` tree, built reproducibly
+  (no committed artifacts involved). Source files from
+  `${nebelung.packages.<system>.default}/<port>/…`.
+- `palette` — the raw `name → "#hex"` attrset, for configs Nix generates
+  itself (a starship palette table, pounce's baked-in colors).
+
+Hacking on the palette inside the wider rice? `haus try` in the
+[workshop](https://github.com/nebelhaus/workshop) rebuilds your machine
+against this local checkout — no push/re-lock loop. CI keeps the committed
+`dist/` honest by rebuilding and diffing on every push.
 
 ### Tuning the palette
 

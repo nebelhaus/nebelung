@@ -1,0 +1,48 @@
+/* Nebelung — Obsidian CSS snippet.
+ *
+ * Drop into your vault's `.obsidian/snippets/nebelung.css`, then enable it under
+ * Settings → Appearance → CSS snippets. It layers on Obsidian's default theme,
+ * repainting the mono base scale, the named color primitives (callouts, tags,
+ * graph, syntax) and the accent from the Nebelung palette. Nebelung is dark, so
+ * everything is scoped to `.theme-dark`. */
+
+.theme-dark {
+  /* Mono base scale — Obsidian derives backgrounds, borders and text from these.
+   * 00 is the primary background; 05/10 recede darker; 15+ climb lighter. */
+  --color-base-00: #202020;
+  --color-base-05: #191919;
+  --color-base-10: #121212;
+  --color-base-15: #343434;
+  --color-base-20: #494949;
+  --color-base-25: #494949;
+  --color-base-30: #5c5c5c;
+  --color-base-35: #5c5c5c;
+  --color-base-40: #717171;
+  --color-base-50: #858585;
+  --color-base-60: #9a9a9a;
+  --color-base-70: #aeaeae;
+  --color-base-100: #d7d7d7;
+
+  /* Named color primitives — callouts, tags, graph nodes, syntax highlighting. */
+  --color-red: #ed8fa9;
+  --color-orange: #f5b58e;
+  --color-yellow: #f7e2b5;
+  --color-green: #abe1a6;
+  --color-cyan: #9be0d5;
+  --color-blue: #8db4f3;
+  --color-purple: #c9a8f1;
+  --color-pink: #f2c4e5;
+
+  /* Accent — Nebelung's default accent is mauve. */
+  --interactive-accent: #c9a8f1;
+  --interactive-accent-hover: #d5d2da;
+  --text-on-accent: #121212;
+  --text-accent: #c9a8f1;
+  --text-accent-hover: #d4cedc;
+
+  /* A few semantics Obsidian doesn't derive cleanly from the base scale. */
+  --background-modifier-border: #343434;
+  --background-modifier-border-hover: #494949;
+  --background-modifier-border-focus: #c9a8f1;
+  --text-selection: #9780b3;
+}
