@@ -46,6 +46,9 @@ done < ports.conf
 # VS Code / Cursor: native catppuccin.colorOverrides snippet (no whiskers).
 node scripts/gen-vscode.mjs
 
+# Stylus: userstyles import json modifier (no whiskers).
+node scripts/gen-stylus.mjs
+
 # Visual preview (plain stdout template, rendered separately).
 whiskers templates/preview.html.tera -f "$FLAVOR" --color-overrides "$PALETTE" > preview/nebelung.html
 echo "✓ preview → preview/nebelung.html"

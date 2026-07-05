@@ -7,10 +7,14 @@
     # the catppuccin flake. This is the same input the consuming nix config
     # already has, so `follows` there keeps a single whiskers in the closure.
     catppuccin.url = "github:catppuccin/nix";
+    catppuccin-userstyles-export = {
+      url = "https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json";
+      flake = false;
+    };
   };
 
   outputs =
-    { self, nixpkgs, catppuccin }:
+    { self, nixpkgs, catppuccin, catppuccin-userstyles-export }:
     let
       systems = [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" ];
       forSystems = nixpkgs.lib.genAttrs systems;
@@ -43,6 +47,7 @@
             # No network, no npm deps (scripts use only Node built-ins).
             buildPhase = ''
               runHook preBuild
+              export CATPPUCCIN_USERSTYLES_EXPORT="${catppuccin-userstyles-export}"
               bash build.sh
               runHook postBuild
             '';
