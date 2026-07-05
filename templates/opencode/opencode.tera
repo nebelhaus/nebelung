@@ -1,0 +1,55 @@
+---
+whiskers:
+  version: "^2.4.0"
+  matrix:
+    - flavor
+  filename: "nebelung.json"
+---
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "defs": {
+    "base": "#{{ base.hex }}",
+    "mantle": "#{{ mantle.hex }}",
+    "crust": "#{{ crust.hex }}",
+    "text": "#{{ text.hex }}",
+    "subtext0": "#{{ subtext0.hex }}",
+    "subtext1": "#{{ subtext1.hex }}",
+    "surface0": "#{{ surface0.hex }}",
+    "surface1": "#{{ surface1.hex }}",
+    "surface2": "#{{ surface2.hex }}",
+    "overlay0": "#{{ overlay0.hex }}",
+    "overlay1": "#{{ overlay1.hex }}",
+    "overlay2": "#{{ overlay2.hex }}",
+    "blue": "#{{ blue.hex }}",
+    "lavender": "#{{ lavender.hex }}",
+    "sapphire": "#{{ sapphire.hex }}",
+    "sky": "#{{ sky.hex }}",
+    "teal": "#{{ teal.hex }}",
+    "green": "#{{ green.hex }}",
+    "yellow": "#{{ yellow.hex }}",
+    "peach": "#{{ peach.hex }}",
+    "maroon": "#{{ maroon.hex }}",
+    "red": "#{{ red.hex }}",
+    "mauve": "#{{ mauve.hex }}",
+    "pink": "#{{ pink.hex }}",
+    "flamingo": "#{{ flamingo.hex }}",
+    "rosewater": "#{{ rosewater.hex }}"
+  },
+  "theme": {
+    "primary": { "dark": "mauve", "light": "mauve" },
+    "secondary": { "dark": "blue", "light": "blue" },
+    "accent": { "dark": "lavender", "light": "lavender" },
+    "error": { "dark": "red", "light": "red" },
+    "warning": { "dark": "yellow", "light": "yellow" },
+    "success": { "dark": "green", "light": "green" },
+    "info": { "dark": "sky", "light": "sky" },
+    "text": { "dark": "text", "light": "text" },
+    "textMuted": { "dark": "subtext0", "light": "subtext0" },
+    "background": { "dark": "base", "light": "base" },
+    "backgroundPanel": { "dark": "mantle", "light": "mantle" },
+    "backgroundElement": { "dark": "surface0", "light": "surface0" },
+    "border": { "dark": "surface1", "light": "surface1" },
+    "borderActive": { "dark": "surface2", "light": "surface2" },
+    "borderSubtle": { "dark": "surface0", "light": "surface0" }
+  }
+}
