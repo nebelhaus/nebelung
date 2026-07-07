@@ -1,6 +1,19 @@
-# Nebelung
+<div align="center">
+
+<!-- identity banner — mauve wordmark (assets/nebelung-banner-rounded.png) -->
+<img src="./assets/nebelung-banner-rounded.png" alt="nebelung" width="480">
 
 A custom [Catppuccin](https://catppuccin.com) flavor — **Mocha with the blue stripped out**.
+
+![part of nebelhaus](https://img.shields.io/badge/part_of-nebelhaus-f2c4e5?labelColor=202020)
+![license](https://img.shields.io/badge/license-MIT-d7d7d7?labelColor=202020)
+
+<!-- assets/palette.png — swatches rendered from preview/nebelung.html -->
+![the nebelung palette](./assets/palette.png)
+
+</div>
+
+---
 
 The entire Catppuccin neutral ramp (`base` → `text`) carries a single ~240° blue
 hue. Nebelung rewrites that ramp to a **faint warm graphite grey**, keeping each
