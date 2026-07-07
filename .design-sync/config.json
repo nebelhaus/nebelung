@@ -1,0 +1,7 @@
+{
+  "projectId": "6ea410cf-4ecc-4e83-b5ac-bee2912ab475",
+  "projectName": "Nebelung",
+  "mode": "tokens-only",
+  "readmeHeader": ".design-sync/conventions.md",
+  "notes": "Repo has no UI components; sync carries the palette as CSS custom properties + tokens JSON + guidelines only."
+}
