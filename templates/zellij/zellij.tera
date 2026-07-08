@@ -40,8 +40,11 @@ themes {
             emphasis_3 "#{{ blue.hex }}"
         }
         ribbon_unselected {
+            // Match the zjstatus inactive top tab (custom.kdl `tab_normal`):
+            // dark text on a medium-grey fill, so the bottom-right hints read
+            // the same as the greyed-out tabs. Selected ribbons stay green.
             base "#{{ mantle.hex }}"
-            background "#{{ text.hex }}"
+            background "#{{ overlay0.hex }}"
             emphasis_0 "#{{ red.hex }}"
             emphasis_1 "#{{ text.hex }}"
             emphasis_2 "#{{ blue.hex }}"
