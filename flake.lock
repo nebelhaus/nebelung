@@ -18,18 +18,6 @@
         "type": "github"
       }
     },
-    "catppuccin-userstyles-export": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-l6UOMhd5hEenS7k7XYamC6KVLywd4dQdToYL69Shuyo=",
-        "type": "file",
-        "url": "https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1782175435,
@@ -62,7 +50,6 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
-        "catppuccin-userstyles-export": "catppuccin-userstyles-export",
         "nixpkgs": "nixpkgs_2"
       }
     }

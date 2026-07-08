@@ -7,14 +7,16 @@
     # the catppuccin flake. This is the same input the consuming nix config
     # already has, so `follows` there keeps a single whiskers in the closure.
     catppuccin.url = "github:catppuccin/nix";
-    catppuccin-userstyles-export = {
-      url = "https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json";
-      flake = false;
-    };
+    # NOTE: the catppuccin userstyles export (import.json) is VENDORED at
+    # vendor/catppuccin-userstyles-export.json instead of fetched. Upstream's
+    # "all-userstyles-export" release asset is a ROLLING URL whose narHash drifts
+    # whenever catppuccin republishes it — which silently broke every consumer's
+    # CI (local builds pass from cache; fresh CI fetches don't). Vendoring pins it
+    # for real. Re-vendor by hand (re-download that URL) to pick up a newer export.
   };
 
   outputs =
-    { self, nixpkgs, catppuccin, catppuccin-userstyles-export }:
+    { self, nixpkgs, catppuccin }:
     let
       systems = [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" ];
       forSystems = nixpkgs.lib.genAttrs systems;
@@ -47,7 +49,7 @@
             # No network, no npm deps (scripts use only Node built-ins).
             buildPhase = ''
               runHook preBuild
-              export CATPPUCCIN_USERSTYLES_EXPORT="${catppuccin-userstyles-export}"
+              export CATPPUCCIN_USERSTYLES_EXPORT="$PWD/vendor/catppuccin-userstyles-export.json"
               bash build.sh
               runHook postBuild
             '';
