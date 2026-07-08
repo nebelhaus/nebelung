@@ -20,7 +20,9 @@ themes {
             background "#{{ mantle.hex }}"
             emphasis_0 "#{{ peach.hex }}"
             emphasis_1 "#{{ sky.hex }}"
-            emphasis_2 "#{{ green.hex }}"
+            // emphasis_2 is the key-letter color in the mode keybind rows (the
+            // row after ctrl+p): yellow to match the ribbon key accent.
+            emphasis_2 "#{{ yellow.hex }}"
             emphasis_3 "#{{ pink.hex }}"
         }
         text_selected {
@@ -40,14 +42,16 @@ themes {
             emphasis_3 "#{{ blue.hex }}"
         }
         ribbon_unselected {
-            // Match the zjstatus inactive top tab (custom.kdl `tab_normal`):
-            // dark text on a medium-grey fill, so the bottom-right hints read
-            // the same as the greyed-out tabs. Selected ribbons stay green.
+            // Every inactive ribbon pill in the status bar — the left mode
+            // indicators (lock/pane/tab/…), the keybind-row labels, AND the
+            // bottom-right quick hints — reads the same greyed-out look as the
+            // inactive top tabs: dark text on a medium-grey fill, with a yellow
+            // key letter (emphasis_0) that stays readable on the grey.
             base "#{{ mantle.hex }}"
             background "#{{ overlay0.hex }}"
-            emphasis_0 "#{{ red.hex }}"
-            emphasis_1 "#{{ text.hex }}"
-            emphasis_2 "#{{ blue.hex }}"
+            emphasis_0 "#{{ yellow.hex }}"
+            emphasis_1 "#{{ sky.hex }}"
+            emphasis_2 "#{{ green.hex }}"
             emphasis_3 "#{{ pink.hex }}"
         }
         table_title {

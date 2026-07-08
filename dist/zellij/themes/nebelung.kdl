@@ -6,7 +6,9 @@ themes {
             background "#191919"
             emphasis_0 "#f5b58e"
             emphasis_1 "#91dbe8"
-            emphasis_2 "#abe1a6"
+            // emphasis_2 is the key-letter color in the mode keybind rows (the
+            // row after ctrl+p): yellow to match the ribbon key accent.
+            emphasis_2 "#f7e2b5"
             emphasis_3 "#f2c4e5"
         }
         text_selected {
@@ -26,14 +28,16 @@ themes {
             emphasis_3 "#8db4f3"
         }
         ribbon_unselected {
-            // Match the zjstatus inactive top tab (custom.kdl `tab_normal`):
-            // dark text on a medium-grey fill, so the bottom-right hints read
-            // the same as the greyed-out tabs. Selected ribbons stay green.
+            // Every inactive ribbon pill in the status bar — the left mode
+            // indicators (lock/pane/tab/…), the keybind-row labels, AND the
+            // bottom-right quick hints — reads the same greyed-out look as the
+            // inactive top tabs: dark text on a medium-grey fill, with a yellow
+            // key letter (emphasis_0) that stays readable on the grey.
             base "#191919"
             background "#717171"
-            emphasis_0 "#ed8fa9"
-            emphasis_1 "#d7d7d7"
-            emphasis_2 "#8db4f3"
+            emphasis_0 "#f7e2b5"
+            emphasis_1 "#91dbe8"
+            emphasis_2 "#abe1a6"
             emphasis_3 "#f2c4e5"
         }
         table_title {
