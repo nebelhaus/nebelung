@@ -1,15 +1,12 @@
 <div align="center">
 
-<!-- identity hero — animated wordmark + particle ring (assets/particle-field.webp) -->
-<img src="./assets/particle-field.webp" alt="nebelung — silver-mist color system" width="720">
+<!-- palette-first hero: animated accent ramp, sorted by hue (assets/swatch-cascade.webp) — static fallback: assets/palette.png -->
+<img src="./assets/swatch-cascade.webp" alt="the nebelung accent palette, sorted by hue" width="720">
 
 A custom [Catppuccin](https://catppuccin.com) flavor — **Mocha with the blue stripped out**.
 
 ![part of nebelhaus](https://img.shields.io/badge/part_of-nebelhaus-f2c4e5?labelColor=202020)
 ![license](https://img.shields.io/badge/license-MIT-d7d7d7?labelColor=202020)
-
-<!-- animated accent ramp, sorted by hue (assets/swatch-cascade.webp) — static fallback: assets/palette.png -->
-<img src="./assets/swatch-cascade.webp" alt="the nebelung accent palette, sorted by hue" width="720">
 
 </div>
 
@@ -23,6 +20,12 @@ so they sit comfortably against neutral grey instead of a slightly-blue base.
 Built with [whiskers](https://whiskers.catppuccin.com): the palette is a
 `--color-overrides` file applied to the upstream `mocha` slot of each port's
 template, so ports stay in sync with Catppuccin upstream and only the colors change.
+
+## Preview
+
+[![the nebelung palette — 14 calmed accents, the warm-graphite neutral ramp, and editor + terminal mockups](./assets/preview.png)](https://htmlpreview.github.io/?https://github.com/nebelhaus/nebelung/blob/main/preview/nebelung.html)
+
+<sub>▶ **[open the interactive preview](https://htmlpreview.github.io/?https://github.com/nebelhaus/nebelung/blob/main/preview/nebelung.html)** — the live swatch board + editor/terminal mockups, rendered straight from [`preview/nebelung.html`](preview/nebelung.html).</sub>
 
 ## Layout
 
