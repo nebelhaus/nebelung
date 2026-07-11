@@ -12,7 +12,7 @@
 // ---------------------------------------------------------------------------
 // CONFIG
 // ---------------------------------------------------------------------------
-const CONFIG = {
+export const CONFIG = {
 	// Warm grey: hue in degrees (≈70° = warm, between orange and yellow) and a
 	// small constant chroma. Bigger chroma => more obvious tint.
 	neutralHue: 70,
@@ -22,7 +22,7 @@ const CONFIG = {
 };
 
 // Canonical Catppuccin Mocha palette (source of truth we override from).
-const MOCHA = {
+export const MOCHA = {
 	rosewater: "f5e0dc",
 	flamingo: "f2cdcd",
 	pink: "f5c2e7",
@@ -52,7 +52,7 @@ const MOCHA = {
 };
 
 // The neutral ramp (everything that carries the ~240° blue). Order = light→dark.
-const NEUTRALS = [
+export const NEUTRALS = [
 	"text",
 	"subtext1",
 	"subtext0",
@@ -66,7 +66,7 @@ const NEUTRALS = [
 	"mantle",
 	"crust",
 ];
-const ACCENTS = [
+export const ACCENTS = [
 	"rosewater",
 	"flamingo",
 	"pink",
@@ -95,8 +95,8 @@ const linearToSrgb = (c) => {
 	const v = c <= 0.0031308 ? c * 12.92 : 1.055 * c ** (1 / 2.4) - 0.055;
 	return Math.round(clamp01(v) * 255);
 };
-const hexToRgb = (h) => [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
-const rgbToHex = (rgb) =>
+export const hexToRgb = (h) => [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+export const rgbToHex = (rgb) =>
 	rgb.map((c) => c.toString(16).padStart(2, "0")).join("");
 
 function rgbToOklab([r, g, b]) {
@@ -131,64 +131,76 @@ function oklabToRgb([L, a, b]) {
 const oklabToLch = ([L, a, b]) => [L, Math.hypot(a, b), Math.atan2(b, a)];
 const lchToOklab = ([L, C, h]) => [L, C * Math.cos(h), C * Math.sin(h)];
 
-const hexToLch = (h) => oklabToLch(rgbToOklab(hexToRgb(h)));
-const lchToHex = (lch) => rgbToHex(oklabToRgb(lchToOklab(lch)));
+export const hexToLch = (h) => oklabToLch(rgbToOklab(hexToRgb(h)));
+export const lchToHex = (lch) => rgbToHex(oklabToRgb(lchToOklab(lch)));
 
 // ---------------------------------------------------------------------------
-// Build the override map
+// Build the override map — pure (MOCHA + config -> { out, table }), no I/O, so
+// tests can call it directly and the CLI block below writes what it returns.
 // ---------------------------------------------------------------------------
-const warmHueRad = (CONFIG.neutralHue * Math.PI) / 180;
-const out = {};
-const table = [];
+export function buildOverrides(config = CONFIG) {
+	const warmHueRad = (config.neutralHue * Math.PI) / 180;
+	const out = {};
+	const table = [];
 
-for (const name of NEUTRALS) {
-	const [L] = hexToLch(MOCHA[name]);
-	const hex = lchToHex([L, CONFIG.neutralChroma, warmHueRad]);
-	out[name] = hex;
-	table.push([name, MOCHA[name], hex, "neutral→warm grey"]);
+	for (const name of NEUTRALS) {
+		const [L] = hexToLch(MOCHA[name]);
+		const hex = lchToHex([L, config.neutralChroma, warmHueRad]);
+		out[name] = hex;
+		table.push([name, MOCHA[name], hex, "neutral→warm grey"]);
+	}
+	for (const name of ACCENTS) {
+		const [L, C, h] = hexToLch(MOCHA[name]);
+		const hex = lchToHex([L, C * config.accentChromaScale, h]);
+		out[name] = hex;
+		table.push([name, MOCHA[name], hex, `chroma ×${config.accentChromaScale}`]);
+	}
+	return { out, table };
 }
-for (const name of ACCENTS) {
-	const [L, C, h] = hexToLch(MOCHA[name]);
-	const hex = lchToHex([L, C * CONFIG.accentChromaScale, h]);
-	out[name] = hex;
-	table.push([name, MOCHA[name], hex, `chroma ×${CONFIG.accentChromaScale}`]);
-}
 
-const overrides = { mocha: out };
-
-// Write the whiskers color-overrides file.
-import { writeFileSync } from "node:fs";
+// ---------------------------------------------------------------------------
+// CLI entry: write the palette files + print a preview. Guarded on isMain so
+// importing this module (from the tests) has no side effects.
+// ---------------------------------------------------------------------------
+import { writeFileSync, realpathSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-writeFileSync(
-	join(root, "palette", "nebelung.json"),
-	JSON.stringify(overrides, null, 2) + "\n",
-);
-// Also a flat hex map for docs/reference.
-writeFileSync(
-	join(root, "palette", "nebelung.hex.json"),
-	JSON.stringify(out, null, 2) + "\n",
-);
+const isMain =
+	process.argv[1] &&
+	realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
 
-// ---------------------------------------------------------------------------
-// Pretty console preview with true-color swatches
-// ---------------------------------------------------------------------------
-const swatch = (hex) => {
-	const [r, g, b] = hexToRgb(hex);
-	return `\x1b[48;2;${r};${g};${b}m      \x1b[0m`;
-};
-console.log(
-	`\n  Nebelung palette — neutralHue=${CONFIG.neutralHue}° ` +
-		`chroma=${CONFIG.neutralChroma} accentScale=${CONFIG.accentChromaScale}\n`,
-);
-console.log(
-	`  ${"name".padEnd(11)} mocha     ${"".padEnd(6)}  nebelung   ${"".padEnd(6)}`,
-);
-for (const [name, from, to, note] of table) {
-	console.log(
-		`  ${name.padEnd(11)} #${from} ${swatch(from)}  #${to} ${swatch(to)}  ${note}`,
+if (isMain) {
+	const { out, table } = buildOverrides();
+	const overrides = { mocha: out };
+
+	const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+	writeFileSync(
+		join(root, "palette", "nebelung.json"),
+		JSON.stringify(overrides, null, 2) + "\n",
 	);
+	// Also a flat hex map for docs/reference.
+	writeFileSync(
+		join(root, "palette", "nebelung.hex.json"),
+		JSON.stringify(out, null, 2) + "\n",
+	);
+
+	// Pretty console preview with true-color swatches.
+	const swatch = (hex) => {
+		const [r, g, b] = hexToRgb(hex);
+		return `\x1b[48;2;${r};${g};${b}m      \x1b[0m`;
+	};
+	console.log(
+		`\n  Nebelung palette — neutralHue=${CONFIG.neutralHue}° ` +
+			`chroma=${CONFIG.neutralChroma} accentScale=${CONFIG.accentChromaScale}\n`,
+	);
+	console.log(
+		`  ${"name".padEnd(11)} mocha     ${"".padEnd(6)}  nebelung   ${"".padEnd(6)}`,
+	);
+	for (const [name, from, to, note] of table) {
+		console.log(
+			`  ${name.padEnd(11)} #${from} ${swatch(from)}  #${to} ${swatch(to)}  ${note}`,
+		);
+	}
+	console.log("\n  Wrote palette/nebelung.json and palette/nebelung.hex.json\n");
 }
-console.log("\n  Wrote palette/nebelung.json and palette/nebelung.hex.json\n");
