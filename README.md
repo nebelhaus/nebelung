@@ -105,7 +105,7 @@ Two outputs:
 Inside the rice, picking an accent and applying it is a single option — see
 [Theming & accents](https://nebelhaus.com/guides/theming/) on nebelhaus.com.
 
-Hacking on the palette inside the wider rice? `haus try` in the
+Hacking on the palette inside the wider rice? `bench try` in the
 [workshop](https://github.com/nebelhaus/workshop) rebuilds your machine
 against this local checkout — no push/re-lock loop. CI keeps the committed
 `dist/` honest by rebuilding and diffing on every push.
