@@ -27,3 +27,20 @@ jobs:
           done < <(cd result && find . -type f -not -path './preview/*' -not -name 'nebelung.json' -not -name 'nebelung.hex.json')
           [ "$fail" = 0 ] && echo "dist/ is in sync"
           exit "$fail"
+
+  unit:
+    name: palette unit tests + shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Pure OKLCH math + drift guard; no nix needed, so this gives fast
+      # feedback on the palette logic ahead of the full build job above.
+      - name: node --test
+        run: node --test
+      - name: shellcheck
+        run: |
+          sudo apt-get update && sudo apt-get install -y shellcheck
+          shellcheck build.sh
