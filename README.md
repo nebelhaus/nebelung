@@ -13,9 +13,10 @@ A custom [Catppuccin](https://catppuccin.com) flavor — **Mocha with the blue s
 ---
 
 The entire Catppuccin neutral ramp (`base` → `text`) carries a single ~240° blue
-hue. Nebelung rewrites that ramp to a **faint warm graphite grey**, keeping each
-color's perceptual lightness identical, then **calms the 14 accents** (chroma ×0.9)
-so they sit comfortably against neutral grey instead of a slightly-blue base.
+hue. Nebelung rewrites that ramp to **pure neutral grey** (chroma 0 — every
+neutral is exactly R = G = B), keeping each color's perceptual lightness
+identical, then **calms the 14 accents** (chroma ×0.9) so they sit comfortably
+against true grey instead of a slightly-blue base.
 
 Built with [whiskers](https://whiskers.catppuccin.com): the palette is a
 `--color-overrides` file applied to the upstream `mocha` slot of each port's
@@ -38,8 +39,8 @@ template, so ports stay in sync with Catppuccin upstream and only the colors cha
 
 ```
 palette/
-  nebelung.json       # whiskers --color-overrides file (the source of truth)
-  nebelung.hex.json   # flat name→hex map, for reference
+  nebelung.json       # whiskers --color-overrides file (generated)
+  nebelung.hex.json   # flat name→hex map (generated; what the flake reads)
 scripts/
   generate-palette.mjs# regenerates the palette via OKLCH color math
 templates/            # vendored upstream port .tera templates
@@ -116,8 +117,8 @@ Edit the `CONFIG` block at the top of `scripts/generate-palette.mjs`:
 
 | knob | meaning |
 | --- | --- |
-| `neutralHue` | hue (°) of the grey tint — 70 = warm |
-| `neutralChroma` | how strong the tint is — bigger = more obvious |
+| `neutralHue` | hue (°) of the grey tint (only matters when chroma > 0) |
+| `neutralChroma` | tint strength — the default `0` is pure neutral grey |
 | `accentChromaScale` | accent calming — 0.9 = 10% less saturated |
 
 Re-run `node scripts/generate-palette.mjs` (or `./build.sh`) and re-open
