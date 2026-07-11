@@ -28,7 +28,7 @@ colored.
 - `templates/` → whiskers templates, one per tool (bat, delta, ghostty, zellij, …).
 - `ports.conf` → which ports get rendered.
 - `packages.<system>.default` → the built theme tree (every port rendered), consumed by
-  `nebelhaus` via `${nebelung.themes}/<tool>/...`.
+  `nebelhaus` via `${nebelung.packages.${system}.default}/<tool>/...`.
 
 ## Recolor
 
@@ -52,4 +52,4 @@ wire the rendered file into the tool's config over in `nebelhaus` (usually `hear
 ## Conventions
 
 - MIT, public. The palette is the source of truth — don't hardcode hex values in
-  `nebelhaus`; inject `nebelung.palette` or reference `${nebelung.themes}`.
+  `nebelhaus`; inject `nebelung.palette` or reference the rendered theme tree (`packages.<system>.default`).
