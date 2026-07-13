@@ -30,6 +30,30 @@
         builtins.fromJSON (builtins.readFile ./palette/nebelung.hex.json)
       );
 
+      # `nix flake check` runs these — the same palette unit tests + shellcheck
+      # that CI's `unit` job runs, so local check == CI without pushing.
+      checks = forSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          palette-tests = pkgs.runCommand "nebelung-palette-tests" {
+            nativeBuildInputs = [ pkgs.nodejs ];
+          } ''
+            cd ${self}
+            node --test
+            touch $out
+          '';
+          shellcheck = pkgs.runCommand "nebelung-shellcheck" {
+            nativeBuildInputs = [ pkgs.shellcheck ];
+          } ''
+            shellcheck ${./build.sh}
+            touch $out
+          '';
+        }
+      );
+
       packages = forSystems (
         system:
         let
