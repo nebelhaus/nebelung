@@ -29,6 +29,8 @@ colored.
 - `ports.conf` → which ports get rendered.
 - `packages.<system>.default` → the built theme tree (every port rendered), consumed by
   `nebelhaus` via `${nebelung.packages.${system}.default}/<tool>/...`.
+- `checks.<system>` → `nix flake check` runs the palette unit tests + `build.sh`
+  shellcheck (mirrors CI's `unit` job) — local check == CI without pushing.
 
 ## Recolor
 
@@ -53,3 +55,6 @@ wire the rendered file into the tool's config over in `nebelhaus` (usually `hear
 
 - MIT, public. The palette is the source of truth — don't hardcode hex values in
   `nebelhaus`; inject `nebelung.palette` or reference the rendered theme tree (`packages.<system>.default`).
+- **`trill` can't consume the flake.** The family's Swift/Xcode Messages client
+  builds outside Nix, so it hand-copies these hex literals into its own `Rice.swift`
+  — a palette change here must be mirrored into trill by hand, or it silently drifts.

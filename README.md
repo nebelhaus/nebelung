@@ -24,14 +24,14 @@ template, so ports stay in sync with Catppuccin upstream and only the colors cha
 
 <!-- S17 — loud-vs-right: same file in bat, upstream Mocha vs Nebelung (assets/loud-vs-right.webp) -->
 <div align="center">
-<img src="./assets/loud-vs-right.webp" alt="the same Rust file in bat: upstream Catppuccin Mocha (blue-tinted neutrals) beside Nebelung (warm graphite, calmed accents)" width="900">
+<img src="./assets/loud-vs-right.webp" alt="the same Rust file in bat: upstream Catppuccin Mocha (blue-tinted neutrals) beside Nebelung (silver-grey neutrals, calmed accents)" width="900">
 <br>
-<sub>the same file in <code>bat</code> — upstream <b>Catppuccin Mocha</b> (blue in every neutral) beside <b>Nebelung</b> (warm graphite, calmed accents).</sub>
+<sub>the same file in <code>bat</code> — upstream <b>Catppuccin Mocha</b> (blue in every neutral) beside <b>Nebelung</b> (pure neutral grey, calmed accents).</sub>
 </div>
 
 ## Preview
 
-[![the nebelung palette — 14 calmed accents, the warm-graphite neutral ramp, and editor + terminal mockups](./assets/preview.png)](https://htmlpreview.github.io/?https://github.com/nebelhaus/nebelung/blob/main/preview/nebelung.html)
+[![the nebelung palette — 14 calmed accents, the pure-grey neutral ramp, and editor + terminal mockups](./assets/preview.png)](https://htmlpreview.github.io/?https://github.com/nebelhaus/nebelung/blob/main/preview/nebelung.html)
 
 <sub>▶ **[open the interactive preview](https://htmlpreview.github.io/?https://github.com/nebelhaus/nebelung/blob/main/preview/nebelung.html)** — the live swatch board + editor/terminal mockups, rendered straight from [`preview/nebelung.html`](preview/nebelung.html).</sub>
 
@@ -79,7 +79,9 @@ build.sh              # render every port into dist/
 | Slack | `slack/README.md` | copy the comma-separated hex string → Slack ▸ Preferences ▸ Themes ▸ paste |
 | Zen | `zen/themes/Mocha/<Accent>/userChrome.css` (+ `userContent.css`) | pick an accent folder, copy into your Zen `chrome/` dir |
 | Obsidian | `obsidian/nebelung.css` | copy into a vault's `.obsidian/snippets/`, then enable under Settings ▸ Appearance ▸ CSS snippets (use the Default theme) |
+| opencode | `opencode/nebelung.json` | copy into `~/.config/opencode/themes/`, then `theme = "nebelung"` in `opencode.json` |
 | VS Code / Cursor | `vscode/settings.json` | merge into your user `settings.json` (needs the Catppuccin extension) |
+| Stylus | `stylus/nebelung-stylus.json` (+ README) | import via the Stylus browser extension ▸ Manage ▸ Import (see `stylus/README.md`) |
 
 VS Code uses the extension's native `catppuccin.colorOverrides` setting — no
 build, the palette is just injected via settings. Set `catppuccin.accentColor`
@@ -95,13 +97,16 @@ rice themes everything:
 inputs.nebelung.url = "github:nebelhaus/nebelung";
 ```
 
-Two outputs:
+Three outputs:
 
 - `packages.<system>.default` — the whole `dist/` tree, built reproducibly
   (no committed artifacts involved). Source files from
   `${nebelung.packages.<system>.default}/<port>/…`.
 - `palette` — the raw `name → "#hex"` attrset, for configs Nix generates
   itself (a starship palette table, pounce's baked-in colors).
+- `checks.<system>` — `nix flake check` runs the palette unit tests +
+  `build.sh` shellcheck (the same as CI's `unit` job), so `nix flake check`
+  == CI without pushing.
 
 Inside the rice, picking an accent and applying it is a single option — see
 [Theming & accents](https://nebelhaus.com/guides/theming/) on nebelhaus.com.
