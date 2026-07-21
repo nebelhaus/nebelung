@@ -133,3 +133,5 @@ Re-run `node scripts/generate-palette.mjs` (or `./build.sh`) and re-open
 
 - [`whiskers`](https://whiskers.catppuccin.com) — `brew install catppuccin/tap/whiskers`
 - Node (for the palette generator)
+
+<!-- noop: agent-worktree panel UI test (nebelhaus#50) — safe to close -->
