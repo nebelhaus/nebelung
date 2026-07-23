@@ -46,6 +46,12 @@ Then push, and in `nebelhaus`: `nix flake update nebelung` + push; in a consumer
 For fast iteration from a consumer without the push/relock loop, override against this
 local checkout: `--override-input nebelhaus/nebelung "path:$HOME/code/nebelhaus/nebelung"`.
 
+When you open the PR for a `worktree-*` branch, give it a **What / Why / Verify / Watch-out**
+body (see the workshop ship skill's Step 3) — the session that wrote the code is gone by the
+time the change is feel-tested, so a bug found later has to be recoverable from `gh pr view`
+alone, and the **Verify** block is exactly what the workshop's `bench try-batch` checklist
+points back to when it feels several PRs together.
+
 ## Add a themed tool
 
 Add a whiskers template under `templates/`, register it in `ports.conf`, rebuild. Then
