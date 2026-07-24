@@ -34,6 +34,16 @@ test('Obsidian theme exposes and uses the complete Nebelung palette', () => {
     assert.match(theme, new RegExp(`#${hex}`, 'i'), `${name} should be used`);
   }
 
-  assert.match(theme, new RegExp(`--titlebar-background: #${palette.crust}`, 'i'));
+  assert.match(theme, new RegExp(`--titlebar-background: #${palette.mantle}`, 'i'));
+  assert.match(theme, new RegExp(`--ribbon-background: #${palette.mantle}`, 'i'));
+  assert.match(theme, new RegExp(`--tab-container-background: #${palette.mantle}`, 'i'));
   assert.match(theme, new RegExp(`--background-primary: #${palette.base}`, 'i'));
+});
+
+test('Obsidian chrome is flat and free of gradient or blur effects', () => {
+  assert.doesNotMatch(theme, /(?:linear|radial|conic)-gradient\(/i);
+  assert.doesNotMatch(theme, /backdrop-filter\s*:/i);
+  assert.match(theme, /--background-modifier-border:\s*transparent/i);
+  assert.match(theme, /--divider-color:\s*transparent/i);
+  assert.match(theme, /--status-bar-border-color:\s*transparent/i);
 });
