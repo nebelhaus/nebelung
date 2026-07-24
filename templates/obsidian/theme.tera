@@ -47,11 +47,14 @@ body.theme-light {
   --neb-mantle: #{{ mantle.hex }};
   --neb-crust: #{{ crust.hex }};
 
-  /* Obsidian's neutral ramp. The canvas stays at Nebelhaus base; chrome falls
-   * through mantle to the darkest neutral, crust. */
+  /* Obsidian's neutral ramp. Keep the document on base and all persistent
+   * chrome on mantle; deeper neutrals are reserved for transient surfaces. */
+  --neb-canvas: #{{ base.hex }};
+  --neb-chrome: #{{ mantle.hex }};
+  --neb-raised: #{{ surface0.hex }};
   --color-base-00: #{{ base.hex }};
   --color-base-05: #{{ mantle.hex }};
-  --color-base-10: #{{ crust.hex }};
+  --color-base-10: #{{ mantle.hex }};
   --color-base-20: #{{ surface0.hex }};
   --color-base-25: #{{ surface0.hex }};
   --color-base-30: #{{ surface1.hex }};
@@ -86,12 +89,12 @@ body.theme-light {
 
   /* Surfaces and text. */
   --background-primary: #{{ base.hex }};
-  --background-primary-alt: #{{ mantle.hex }};
+  --background-primary-alt: #{{ base.hex }};
   --background-secondary: #{{ mantle.hex }};
-  --background-secondary-alt: #{{ crust.hex }};
+  --background-secondary-alt: #{{ mantle.hex }};
   --background-modifier-hover: color-mix(in srgb, #{{ surface0.hex }} 72%, transparent);
   --background-modifier-active-hover: color-mix(in srgb, #{{ surface1.hex }} 78%, transparent);
-  --background-modifier-border: #{{ surface0.hex }};
+  --background-modifier-border: transparent;
   --background-modifier-border-hover: #{{ surface1.hex }};
   --background-modifier-border-focus: #{{ mauve.hex }};
   --background-modifier-error: #{{ red.hex }};
@@ -209,8 +212,8 @@ body.theme-light {
   --tag-color-hover: #{{ crust.hex }};
   --tag-background: color-mix(in srgb, #{{ sky.hex }} 13%, #{{ mantle.hex }});
   --tag-background-hover: #{{ sky.hex }};
-  --tag-border-color: color-mix(in srgb, #{{ sky.hex }} 32%, transparent);
-  --tag-border-color-hover: #{{ sky.hex }};
+  --tag-border-color: transparent;
+  --tag-border-color-hover: transparent;
   --tag-radius: 999px;
   --tag-padding-x: 0.58em;
   --tag-padding-y: 0.16em;
@@ -240,8 +243,8 @@ body.theme-light {
   --callout-important: {{ pink.rgb.r }}, {{ pink.rgb.g }}, {{ pink.rgb.b }};
   --callout-summary: var(--color-cyan-rgb);
   --callout-title-weight: 650;
-  --callout-border-width: 1px;
-  --callout-border-opacity: 0.28;
+  --callout-border-width: 0;
+  --callout-border-opacity: 0;
   --callout-padding: 14px 16px;
 
   /* Graph, canvas, properties and navigation. */
@@ -274,31 +277,31 @@ body.theme-light {
   --nav-item-color-active: #{{ text.hex }};
   --nav-item-color-selected: #{{ text.hex }};
   --nav-item-background-hover: color-mix(in srgb, #{{ surface0.hex }} 66%, transparent);
-  --nav-item-background-active: color-mix(in srgb, #{{ mauve.hex }} 14%, #{{ surface0.hex }});
-  --nav-item-background-selected: color-mix(in srgb, #{{ surface1.hex }} 70%, transparent);
+  --nav-item-background-active: #{{ surface0.hex }};
+  --nav-item-background-selected: #{{ surface0.hex }};
   --nav-item-radius: 7px;
   --nav-indentation-guide-color: #{{ surface0.hex }};
   --indentation-guide-color: #{{ surface0.hex }};
   --indentation-guide-color-active: #{{ mauve.hex }};
 
-  --tab-background-active: color-mix(in srgb, #{{ surface0.hex }} 58%, #{{ base.hex }});
+  --tab-background-active: #{{ surface0.hex }};
   --tab-text-color: #{{ overlay2.hex }};
   --tab-text-color-active: #{{ text.hex }};
   --tab-text-color-focused: #{{ subtext1.hex }};
   --tab-text-color-focused-active: #{{ text.hex }};
-  --tab-outline-color: #{{ surface0.hex }};
+  --tab-outline-color: transparent;
   --tab-divider-color: transparent;
   --tab-curve: 0;
   --tab-radius: 8px;
   --tab-radius-active: 8px;
   --tab-container-background: #{{ mantle.hex }};
 
-  --titlebar-background: #{{ crust.hex }};
-  --titlebar-background-focused: #{{ crust.hex }};
+  --titlebar-background: #{{ mantle.hex }};
+  --titlebar-background-focused: #{{ mantle.hex }};
   --ribbon-background: #{{ mantle.hex }};
-  --status-bar-background: color-mix(in srgb, #{{ crust.hex }} 90%, transparent);
-  --status-bar-border-color: #{{ surface0.hex }};
-  --divider-color: #{{ surface0.hex }};
+  --status-bar-background: #{{ mantle.hex }};
+  --status-bar-border-color: transparent;
+  --divider-color: transparent;
   --divider-color-hover: #{{ mauve.hex }};
   --scrollbar-bg: transparent;
   --scrollbar-thumb-bg: #{{ surface1.hex }};
@@ -311,29 +314,50 @@ body.theme-light {
   --clickable-icon-radius: 7px;
 
   --modal-background: #{{ mantle.hex }};
-  --modal-border-color: #{{ surface0.hex }};
-  --prompt-border-color: #{{ surface1.hex }};
-  --menu-background: color-mix(in srgb, #{{ mantle.hex }} 96%, transparent);
-  --menu-border-color: #{{ surface0.hex }};
-  --menu-shadow: 0 20px 60px -24px rgba(0, 0, 0, 0.92);
+  --modal-border-color: transparent;
+  --prompt-border-color: transparent;
+  --menu-background: #{{ mantle.hex }};
+  --menu-border-color: transparent;
+  --menu-shadow: 0 16px 42px -24px rgba(0, 0, 0, 0.82);
 }
 
-/* App shell: the deepest neutral frames a quieter base canvas. */
+/* App shell: every persistent chrome region shares one flat neutral. */
 .theme-dark .workspace,
 .theme-light .workspace {
-  background: #{{ crust.hex }};
+  background: var(--neb-chrome);
+}
+
+.theme-dark :is(
+  .titlebar,
+  .workspace-ribbon,
+  .workspace-tab-header-container,
+  .workspace-sidedock-vault-profile,
+  .mod-left-split,
+  .mod-right-split,
+  .view-header
+),
+.theme-light :is(
+  .titlebar,
+  .workspace-ribbon,
+  .workspace-tab-header-container,
+  .workspace-sidedock-vault-profile,
+  .mod-left-split,
+  .mod-right-split,
+  .view-header
+) {
+  background: var(--neb-chrome);
 }
 
 .theme-dark .workspace-ribbon,
 .theme-light .workspace-ribbon,
 .theme-dark .workspace-sidedock-vault-profile,
 .theme-light .workspace-sidedock-vault-profile {
-  border-color: #{{ surface0.hex }};
+  border-color: transparent;
 }
 
 .theme-dark .workspace-tab-header-container,
 .theme-light .workspace-tab-header-container {
-  box-shadow: inset 0 -1px #{{ surface0.hex }};
+  box-shadow: none;
 }
 
 .theme-dark .workspace-tab-header,
@@ -346,9 +370,7 @@ body.theme-light {
 
 .theme-dark .workspace-tab-header.is-active,
 .theme-light .workspace-tab-header.is-active {
-  box-shadow:
-    inset 0 0 0 1px color-mix(in srgb, #{{ mauve.hex }} 22%, #{{ surface0.hex }}),
-    0 6px 18px -12px rgba(0, 0, 0, 0.8);
+  box-shadow: none;
 }
 
 .theme-dark .workspace-tab-header.is-active::before,
@@ -358,18 +380,14 @@ body.theme-light {
   display: none;
 }
 
-/* A very restrained version of the landing page's fog: color lives around the
- * canvas edges, while the writing column remains neutral and highly legible. */
+/* Notes, canvases and graphs stay quiet: a single flat writing surface. */
 .theme-dark .workspace-leaf-content[data-type="markdown"] .view-content,
 .theme-light .workspace-leaf-content[data-type="markdown"] .view-content,
 .theme-dark .workspace-leaf-content[data-type="canvas"] .view-content,
 .theme-light .workspace-leaf-content[data-type="canvas"] .view-content,
 .theme-dark .workspace-leaf-content[data-type="graph"] .view-content,
 .theme-light .workspace-leaf-content[data-type="graph"] .view-content {
-  background:
-    radial-gradient(70% 52% at 12% 0%, color-mix(in srgb, #{{ mauve.hex }} 9%, transparent), transparent 72%),
-    radial-gradient(55% 46% at 92% 8%, color-mix(in srgb, #{{ pink.hex }} 6%, transparent), transparent 72%),
-    linear-gradient(180deg, #{{ base.hex }} 0%, #{{ base.hex }} 62%, #{{ mantle.hex }} 135%);
+  background: var(--neb-canvas);
 }
 
 .theme-dark .markdown-source-view,
@@ -379,31 +397,26 @@ body.theme-light {
   background: transparent;
 }
 
-/* Inline title mirrors the site's quiet text → mauve → pink hero treatment. */
+/* Inline titles stay typographic rather than decorative. */
 .theme-dark .inline-title,
 .theme-light .inline-title {
   width: fit-content;
   max-width: 100%;
   margin-bottom: 0.8em;
-  background: linear-gradient(115deg, #{{ text.hex }} 12%, #{{ mauve.hex }} 68%, #{{ pink.hex }});
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  color: #{{ text.hex }};
   letter-spacing: -0.025em;
 }
 
-/* Cards, commands and menus use the same translucent mantle panels as
- * nebelhaus.com, with enough opacity to keep text readable over the fog. */
+/* Floating surfaces are opaque, flat mantle panels. */
 .theme-dark :is(.modal, .prompt, .popover, .suggestion-container, .menu),
 .theme-light :is(.modal, .prompt, .popover, .suggestion-container, .menu) {
-  border: 1px solid #{{ surface0.hex }};
-  box-shadow: 0 24px 70px -30px rgba(0, 0, 0, 0.94);
-  backdrop-filter: blur(16px);
+  border: 0;
+  box-shadow: 0 18px 52px -30px rgba(0, 0, 0, 0.9);
 }
 
 .theme-dark :is(.prompt, .suggestion-container, .menu),
 .theme-light :is(.prompt, .suggestion-container, .menu) {
-  background: color-mix(in srgb, #{{ mantle.hex }} 94%, transparent);
+  background: #{{ mantle.hex }};
 }
 
 .theme-dark .suggestion-item,
@@ -414,14 +427,13 @@ body.theme-light {
 
 .theme-dark .suggestion-item.is-selected,
 .theme-light .suggestion-item.is-selected {
-  background:
-    linear-gradient(90deg, color-mix(in srgb, #{{ mauve.hex }} 16%, #{{ surface0.hex }}), #{{ surface0.hex }});
+  background: #{{ surface0.hex }};
   color: #{{ text.hex }};
 }
 
 .theme-dark :is(input[type="text"], input[type="search"], input[type="email"], input[type="password"], textarea),
 .theme-light :is(input[type="text"], input[type="search"], input[type="email"], input[type="password"], textarea) {
-  border: 1px solid #{{ surface0.hex }};
+  border: 0;
   box-shadow: none;
 }
 
@@ -431,15 +443,15 @@ body.theme-light {
   box-shadow: 0 0 0 2px color-mix(in srgb, #{{ mauve.hex }} 18%, transparent);
 }
 
-/* Primary actions borrow the landing page's mauve-to-pink CTA. */
+/* Primary actions use one clear accent without dimensional effects. */
 .theme-dark button.mod-cta,
 .theme-light button.mod-cta,
 .theme-dark .mod-cta .setting-item-control button,
 .theme-light .mod-cta .setting-item-control button {
   border: 0;
-  background: linear-gradient(120deg, #{{ mauve.hex }}, #{{ pink.hex }});
+  background: #{{ mauve.hex }};
   color: #{{ crust.hex }};
-  box-shadow: 0 12px 30px -14px color-mix(in srgb, #{{ mauve.hex }} 72%, transparent);
+  box-shadow: none;
   font-weight: 600;
 }
 
@@ -447,8 +459,7 @@ body.theme-light {
 .theme-light button.mod-cta:hover,
 .theme-dark .mod-cta .setting-item-control button:hover,
 .theme-light .mod-cta .setting-item-control button:hover {
-  background: linear-gradient(120deg, #{{ lavender.hex }}, #{{ pink.hex }});
-  transform: translateY(-1px);
+  background: #{{ lavender.hex }};
 }
 
 /* Notes read as a calm document, not an IDE surface. */
@@ -466,17 +477,17 @@ body.theme-light {
 
 .theme-dark :is(.markdown-rendered, .cm-s-obsidian) code,
 .theme-light :is(.markdown-rendered, .cm-s-obsidian) code {
-  border: 1px solid #{{ surface0.hex }};
+  border: 0;
   border-radius: 6px;
 }
 
 .theme-dark .markdown-rendered pre,
 .theme-light .markdown-rendered pre {
   padding: 1.05em 1.15em;
-  border: 1px solid #{{ surface0.hex }};
+  border: 0;
   border-radius: 12px;
-  background: color-mix(in srgb, #{{ crust.hex }} 82%, transparent);
-  box-shadow: 0 18px 44px -34px rgba(0, 0, 0, 0.9);
+  background: #{{ crust.hex }};
+  box-shadow: none;
 }
 
 .theme-dark .markdown-rendered pre code,
@@ -489,7 +500,7 @@ body.theme-light {
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
-  border: 1px solid #{{ surface0.hex }};
+  border: 0;
   border-radius: 10px;
 }
 
@@ -514,16 +525,15 @@ body.theme-light {
 .theme-dark .metadata-container,
 .theme-light .metadata-container {
   padding: 12px;
-  border: 1px solid #{{ surface0.hex }};
+  border: 0;
   border-radius: 12px;
-  background: color-mix(in srgb, #{{ mantle.hex }} 66%, transparent);
+  background: #{{ mantle.hex }};
 }
 
 .theme-dark .status-bar,
 .theme-light .status-bar {
-  border-top: 1px solid #{{ surface0.hex }};
+  border: 0;
   color: #{{ overlay1.hex }};
-  backdrop-filter: blur(10px);
 }
 
 .theme-dark ::-webkit-scrollbar-thumb,
